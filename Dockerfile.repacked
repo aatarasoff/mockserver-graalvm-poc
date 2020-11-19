@@ -1,0 +1,21 @@
+# build repacked image
+FROM jamesdbloom/mockserver:mockserver-5.10.0 as build
+
+WORKDIR /opt/mockserver
+
+RUN jar xvf mockserver-netty-jar-with-dependencies.jar
+COPY keyToValue.json keyToMultiValue.json org/mockserver/model/schema/
+RUN rm ./mockserver-netty-jar-with-dependencies.jar && \
+    jar cmf META-INF/MANIFEST.MF ./mockserver-netty-jar-with-dependencies.jar *
+
+# native build image
+FROM oracle/graalvm-ce:20.1.0-java11-ol8
+
+COPY --from=build /opt/mockserver/mockserver-netty-jar-with-dependencies.jar /
+COPY mockserver.properties init.json reflect-custom.json resource-custom.json /
+
+WORKDIR /opt/graalvm
+
+RUN gu install native-image
+
+WORKDIR /

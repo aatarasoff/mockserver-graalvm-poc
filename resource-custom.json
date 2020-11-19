@@ -1,0 +1,10 @@
+{
+  "resources":[
+      {"pattern":"\\Qorg/mockserver/model/schema/expectations.json\\E"},
+      {"pattern":"\\Qorg/mockserver/model/schema/openAPIDefinitiion.json\\E"},
+      {"pattern":"\\Qorg/mockserver/model/schema/openAPIExpectation.json\\E"},
+      {"pattern":"\\Qorg/mockserver/model/schema/requestDefinition.json\\E"},
+      {"pattern":"\\Qorg/mockserver/model/schema/stringOrJsonSchema.json\\E"}
+  ],
+  "bundles":[]
+}
